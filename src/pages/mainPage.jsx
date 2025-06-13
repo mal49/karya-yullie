@@ -24,7 +24,7 @@ export default function MainPage() {
                     <li><a href="#">About</a></li>
                     <li><a href="#">Booking</a></li>
                 </ul>
-                <div className="text-5xl text-ruby text-center mt-5 font-sail"><a href="/">Karya Yullie</a></div>
+                <div className="text-5xl text-ruby text-center mt-5 font-sail tracking-[5px]"><a href="#">Karya Yullie</a></div>
             </div>
             <div className="fixed bottom-0 w-full py-4 shadow-lg">
                 <ul className="flex flex-row justify-center items-center gap-8 text-sm text-ruby hover:text-ruby-dark transition-colors duration-300">
