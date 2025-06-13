@@ -25,8 +25,8 @@ export default function MainPage() {
                         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
-                <ul className={`${isMenuOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row absolute md:static top-10 left-0 right-0 bg-[#FCFFE3] md:bg-transparent shadow-lg md:shadow-none items-center justify-center gap-4 md:gap-[50px] py-4 md:py-0 text-[12px] text-black md:text-xs font-normal md:pt-3 transition-all duration-300 ease-in-out`}>
-                    <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Home</a></li>
+                <ul className={`${isMenuOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'} md:max-h-none md:opacity-100 md:flex flex-col md:flex-row absolute md:static top-10 left-0 right-0 bg-[#FCFFE3] md:bg-transparent shadow-lg md:shadow-none items-center justify-center space-y-4 md:space-y-0 md:space-x-[50px] py-4 md:py-0 text-[12px] text-ruby md:text-black md:font-normal md:text-xs font-medium md:pt-3 transition-all duration-300 ease-in-out overflow-hidden text-center`}>
+                        <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Home</a></li>
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Collaboration</a></li>
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">About</a></li>
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Booking</a></li>
