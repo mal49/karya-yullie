@@ -24,7 +24,7 @@ export default function MainPage() {
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">About</a></li>
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Booking</a></li>
                 </ul>
-                <div className="text-[18px] md:text-3xl text-ruby text-center font-sail tracking-[1px] md:tracking-[5px]"><a href="#">Karya Yullie</a></div>
+                <div className="text-[18px] md:text-3xl md:mt-2 text-ruby text-center font-sail tracking-[1px] md:tracking-[5px]"><a href="#">Karya Yullie</a></div>
             </div>
             <div className="fixed bottom-0 w-full py-4 shadow-lg">
                 <ul className="flex flex-row justify-center items-center gap-4 md:gap-8 text-sm text-ruby hover:text-ruby-dark transition-colors duration-300">
