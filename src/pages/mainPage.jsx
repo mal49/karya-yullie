@@ -21,7 +21,7 @@ export default function MainPage() {
         <div>
             <div className="flex flex-row-reverse justify-between md:flex-col md:pt-3 px-2 md:px-2 shadow-lg md:shadow-none py-2 md:pb-2"> 
                 <div className="md:hidden">
-                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-ruby hover:text-ruby-dark transition-colors duration-300">
+                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-ruby">
                         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </div>
