@@ -17,14 +17,14 @@ export default function MainPage() {
 
     return(
         <div>
-            <div className="flex flex-row-reverse md:flex-col justify-between px-2">
-                <ul className="flex flex-row items-center justify-center gap-[8px] md:gap-[50px] mt-2 text-[12px] md:text-xs text-400 hover:text-ruby-dark transition-colors duration-300">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Collaboration</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Booking</a></li>
+            <div className="flex flex-row-reverse md:flex-col justify-between md:pt-3 px-2 md:px-2 shadow-lg md:shadow-none py-2 md:pb-2">
+                <ul className="flex flex-row items-center justify-center gap-[8px] md:gap-[50px] text-[12px] text-black md:text-xs font-normal">
+                    <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Home</a></li>
+                    <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Collaboration</a></li>
+                    <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">About</a></li>
+                    <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Booking</a></li>
                 </ul>
-                <div className="text-[18px] md:text-3xl text-ruby text-center mt-2 font-sail tracking-[3px] md:tracking-[5px]"><a href="#">Karya Yullie</a></div>
+                <div className="text-[18px] md:text-3xl text-ruby text-center font-sail tracking-[3px] md:tracking-[5px]"><a href="#">Karya Yullie</a></div>
             </div>
             <div className="fixed bottom-0 w-full py-4 shadow-lg">
                 <ul className="flex flex-row justify-center items-center gap-4 md:gap-8 text-sm text-ruby hover:text-ruby-dark transition-colors duration-300">
