@@ -40,7 +40,7 @@ export default function MainPage() {
                 <ul className="flex flex-row justify-center items-center gap-4 md:gap-8 text-sm text-ruby hover:text-ruby-dark transition-colors duration-300">
                     <li><a href="#">Instagram</a></li>
                     <li><a href="#">Whatsapp</a></li>
-                    <li><a href="#">Thread</a></li>
+                    <li><a href="#">Threads</a></li>
                 </ul>
                 <p className="text-center text-xs text-gray-500 mt-2">© {currentYear} Karya Yullie. All rights reserved.</p>
             </div>
