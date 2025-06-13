@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import {Menu, X} from 'lucide-react';
 
 
 export default function MainPage() {
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -17,14 +19,22 @@ export default function MainPage() {
 
     return(
         <div>
-            <div className="flex flex-row-reverse md:flex-col justify-between md:pt-3 px-2 md:px-2 shadow-lg md:shadow-none py-2 md:pb-2">
-                <ul className="flex flex-row items-center justify-center gap-[8px] md:gap-[50px] text-[12px] text-black md:text-xs font-normal">
+            <div className="flex flex-row-reverse justify-between md:flex-col md:pt-3 px-2 md:px-2 shadow-lg md:shadow-none py-2 md:pb-2"> 
+                <div className="md:hidden">
+                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-ruby hover:text-ruby-dark transition-colors duration-300">
+                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
+                <ul className={`${isMenuOpen ? 'flex opacity-100' : 'hidden opacity-0'} md:flex flex-col md:flex-row absolute md:static top-10 left-0 right-0 bg-[#FCFFE3] md:bg-transparent shadow-lg md:shadow-none items-center justify-center gap-4 md:gap-[50px] py-4 md:py-0 text-[12px] text-black md:text-xs font-normal md:pt-3 transition-all duration-300 ease-in-out`}>
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Home</a></li>
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Collaboration</a></li>
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">About</a></li>
                     <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Booking</a></li>
                 </ul>
-                <div className="text-[18px] md:text-3xl md:mt-2 text-ruby text-center font-sail tracking-[1px] md:tracking-[5px]"><a href="#">Karya Yullie</a></div>
+
+                <div className="text-[18px] md:text-3xl md:mt-3 text-ruby text-center font-sail tracking-[1px] md:tracking-[5px]">
+                    <a href="#">Karya Yullie</a>
+                </div>
             </div>
             <div className="fixed bottom-0 w-full py-4 shadow-lg">
                 <ul className="flex flex-row justify-center items-center gap-4 md:gap-8 text-sm text-ruby hover:text-ruby-dark transition-colors duration-300">
