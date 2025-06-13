@@ -8,6 +8,10 @@ module.exports = {
     ],
     theme: {
       extend: {
+        fontFamily: {
+          'sail': ['Sail', 'cursive'],
+          'roboto': ['Roboto', 'sans-serif'],
+        },
         colors: {
           // Your custom ruby color palette
           ruby: {
