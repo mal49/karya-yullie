@@ -155,7 +155,7 @@ export default function MainPage() {
                                 <img 
                                 src={image.url} 
                                 alt={image.name} 
-                                className="w-full rounded-lg shadow-md hover-shadow-xl transition-shadow duration-300 transform hover:scale-[1.02] object-cover"
+                                className="w-full shadow-md hover-shadow-xl transition-shadow duration-300 transform hover:scale-[1.02] object-cover"
                                 onError={(e) => {
                                     console.error('Failed to load image:', error);
                                     e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48rectIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlMGUwZTAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9ImludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2Ugbm90IGZvdW5kPC90ZXh0Pjwvc3ZnPg==';
