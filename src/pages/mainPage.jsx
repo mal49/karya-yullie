@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import {Menu, X} from 'lucide-react';
-
+import { usePage } from "../context/PageContext";
+import Header from "../components/Header";
 
 export default function MainPage() {
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [image, setImage] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessages] = useState('');
@@ -124,23 +123,7 @@ export default function MainPage() {
 
     return(
         <div>
-            {/* header */}
-            <div className="flex flex-row-reverse justify-between md:flex-row-reverse px-2 md:px-2 shadow-lg md:shadow-none py-2 md:pb-2"> 
-                <div className="md:hidden">
-                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-ruby">
-                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                    </button>
-                </div>
-                <ul className={`${isMenuOpen ? 'max-h-[200px] opacity-100' : 'max-h-0 opacity-0'} md:max-h-none md:opacity-100 md:flex flex-col md:flex-row absolute md:static top-10 left-0 right-0 bg-[#FCFFE3] md:bg-transparent shadow-lg md:shadow-none items-center justify-center space-y-4 md:space-y-0 md:space-x-[50px] py-4 md:py-0 md:pr-3 text-[12px] text-ruby md:text-black md:font-normal md:text-xs font-medium transition-all duration-300 ease-in-out overflow-hidden text-center z-10`}>
-                        <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Home</a></li>
-                    <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Collaboration</a></li>
-                    <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">About</a></li>
-                    <li><a href="#" className="hover:text-ruby-dark transition-colors duration-300">Booking</a></li>
-                </ul>
-                <div className="text-[18px] md:text-3xl text-ruby text-center font-sail tracking-[1px] md:tracking-[5px] md:pl-3">
-                    <a href="#">Karya Yullie</a>
-                </div>
-            </div>
+            <Header />
 
             {/* body */}
             <div className="min-h-screen"> {/* Min height screen */}
