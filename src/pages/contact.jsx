@@ -47,7 +47,7 @@ export default function Contact() {
                             <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 p-1">
                                 <div className="bg-white rounded-full p-1">
                                     <img 
-                                        src="./public/img/yullie.jpeg"
+                                        src="/img/yullie.jpeg"
                                         alt="Yullie's profile" 
                                         className="w-20 h-20 rounded-full object-cover"
                                     />
