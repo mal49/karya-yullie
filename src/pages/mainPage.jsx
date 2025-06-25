@@ -17,12 +17,12 @@ export default function MainPage() {
         try {
             const publicImageModules = import.meta.glob(
                 [
-                    '/public/**/*.jpg',
-                    '/public/**/*.jpeg',
-                    '/public/**/*.png',
-                    '/public/**/*.gif',
-                    '/public/**/*.webp',
-                    '/public/**/*.bmp'
+                    '/public/image/*.jpg',
+                    '/public/image/*.jpeg',
+                    '/public/image/*.png',
+                    '/public/image/*.gif',
+                    '/public/image/*.webp',
+                    '/public/image/*.bmp'
                 ],
                 { eager: true, as: 'url' }
             );
