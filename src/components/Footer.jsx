@@ -7,7 +7,7 @@ export default function Footer() {
         {
             name: 'Instagram',
             icon: Instagram,
-            href: '#',
+            href: 'https://www.instagram.com/karyayullie?utm_source=ig_web_button_share_sheet&igsh=MThsYnBlaWJraWN2cg==',
             color: 'hover:text-pink-500'
         },
         {
@@ -19,7 +19,7 @@ export default function Footer() {
         {
             name: 'Threads',
             icon: AtSign,
-            href: '#',
+            href: 'https://www.threads.com/@karyayullie',
             color: 'hover:text-blue-500'
         }
     ];
@@ -43,6 +43,7 @@ export default function Footer() {
                                     href={link.href}
                                     className={`group flex items-center gap-2 text-neutral-600 ${link.color} transition-all duration-300 hover:scale-110`}
                                     aria-label={link.name}
+                                    target='blank'
                                 >
                                     <IconComponent size={20} />
                                     <span className="text-sm font-medium group-hover:text-inherit transition-colors duration-300">

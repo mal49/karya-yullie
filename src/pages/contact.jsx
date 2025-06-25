@@ -7,7 +7,7 @@ export default function Contact() {
         {
             name: 'Instagram',
             icon: Instagram,
-            href: '#',
+            href: 'https://www.instagram.com/karyayullie?utm_source=ig_web_button_share_sheet&igsh=MThsYnBlaWJraWN2cg==',
             color: 'bg-gradient-to-r from-purple-500 to-pink-500',
             textColor: 'text-white'
         },
@@ -21,7 +21,7 @@ export default function Contact() {
         {
             name: 'Threads',
             icon: AtSign,
-            href: '#',
+            href: 'https://www.threads.com/@karyayullie',
             color: 'bg-black',
             textColor: 'text-white'
         }
@@ -94,6 +94,7 @@ export default function Contact() {
                                         href={link.href}
                                         className={`w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl ${link.color} ${link.textColor} font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
                                         style={{ animationDelay: `${index * 0.1}s` }}
+                                        target="blank"
                                     >
                                         <IconComponent size={18} />
                                         <span>{link.name === 'WhatsApp' ? 'Chat on Whatsapp' : `Follow on ${link.name}`}</span>
@@ -105,7 +106,12 @@ export default function Contact() {
                         {/* Message Button */}
                         <div className="mt-4">
                             <button className="w-full py-3 px-4 bg-gray-100 text-gray-800 font-medium rounded-xl hover:bg-gray-200 transition-all duration-300 hover:scale-[1.02]">
-                                Send Message
+                                <a 
+                                href="https://l.instagram.com/?u=https%3A%2F%2Fwa.link%2Fq0hzvl%3Ffbclid%3DPAZXh0bgNhZW0CMTEAAafAgsNN1vppsDnKckMIh-NphflL-OY4uii2W0D3ct4eJ-Ku3x4FUhA-GWc6SA_aem_l8Yc12KLuE-HyzdLa5cr_g&e=AT3LXvaEnlyhwDyrwUSNTCWe5YcB59LJkhD1WhapbdZB6czDKyNAkeitNw4YAyuZE_pbWaYKs6FSHYbXy7XXFCXrt9C6xWNRo3ozOg"
+                                target="blank"
+                                >
+                                    Send Messages
+                                </a>
                             </button>
                         </div>
 
@@ -115,7 +121,7 @@ export default function Contact() {
                                 ✨ Professional makeup artist<br/>
                                 📍 Available in Selangor/KL<br/>
                                 💄 Beauty • Fashion • Events<br/>
-                                📧 karyayullie@email.com
+                                📧 zcyeollie@gmail.com
                             </p>
                         </div>
                     </div>
