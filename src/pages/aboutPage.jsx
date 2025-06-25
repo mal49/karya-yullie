@@ -26,7 +26,7 @@ export default function AboutPage() {
             {/* Hero Section */}
             <section className="relative py-12 ipad:py-20 ipad-pro:py-24 px-4 ipad:px-8 ipad-pro:px-12 max-w-7xl mx-auto">
                 <div className="text-center">
-                    <h1 className="text-4xl ipad:text-5xl ipad-pro:text-6xl lg:text-7xl font-playfair font-bold text-gradient mb-4 ipad:mb-6 fade-in-up">
+                    <h1 className="text-4xl ipad:text-5xl lg:text-7xl font-playfair font-bold text-gradient mb-4 ipad:mb-6 fade-in-up">
                         About Yullie
                     </h1>
                     <p className="text-base ipad:text-lg ipad-pro:text-xl text-neutral-600 max-w-xl ipad:max-w-2xl mx-auto fade-in-up px-4 ipad:px-0">
