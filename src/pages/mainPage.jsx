@@ -17,24 +17,12 @@ export default function MainPage() {
         try {
             const publicImageModules = import.meta.glob(
                 [
-                    '/public/image/*.jpg',
-                    '/public/image/*.jpeg',
-                    '/public/image/*.png',
-                    '/public/image/*.gif',
-                    '/public/image/*.webp',
-                    '/public/image/*.bmp'
-                ],
-                { eager: true, as: 'url' }
-            );
-
-            const assetsImageModules = import.meta.glob(
-                [
-                    '/src/assets/**/*.jpg',
-                    '/src/assets/**/*.jpeg',
-                    '/src/assets/**/*.png',
-                    '/src/assets/**/*.gif',
-                    '/src/assets/**/*.webp',
-                    '/src/assets/**/*.bmp'
+                    '/public/images/*.jpg',
+                    '/public/images/*.jpeg',
+                    '/public/images/*.png',
+                    '/public/images/*.gif',
+                    '/public/images/*.webp',
+                    '/public/images/*.bmp'
                 ],
                 { eager: true, as: 'url' }
             );
