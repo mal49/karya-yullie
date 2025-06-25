@@ -27,6 +27,18 @@ export default function MainPage() {
                 { eager: true, as: 'url' }
             );
 
+            // const assetsImageModules = import.meta.glob(
+            //     [
+            //         '/src/assets/**/*.jpg',
+            //         '/src/assets/**/*.jpeg', 
+            //         '/src/assets/**/*.png',
+            //         '/src/assets/**/*.gif',
+            //         '/src/assets/**/*.webp',
+            //         '/src/assets/**/*.bmp'
+            //     ],
+            //     { eager: true, as: 'url' }
+            // );
+
             let imageList = [];
             let currentId = 0;
 
@@ -41,18 +53,18 @@ export default function MainPage() {
                 });
             }
 
-            if (imageList.length === 0 && Object.keys(assetsImageModules).length > 0) {
-                for (const path in assetsImageModules) {
-                    const url = assetsImageModules[path];
-                    imageList.push({
-                        id: currentId++,
-                        url: url,
-                        name: path.split('/').pop(),
-                        path: path,
-                        folder: 'src/assets'
-                    });
-                }
-            }
+            // if (imageList.length === 0 && Object.keys(assetsImageModules).length > 0) {
+            //     for (const path in assetsImageModules) {
+            //         const url = assetsImageModules[path];
+            //         imageList.push({
+            //             id: currentId++,
+            //             url: url,
+            //             name: path.split('/').pop(),
+            //             path: path,
+            //             folder: 'src/assets'
+            //         });
+            //     }
+            // }
 
             imageList.sort((a, b) => a.name.localeCompare(b.name));
 
