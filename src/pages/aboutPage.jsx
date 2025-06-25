@@ -42,7 +42,7 @@ export default function AboutPage() {
                     <div className="relative">
                         <div className="relative overflow-hidden rounded-2xl shadow-elegant">
                             <img 
-                                src="./src/assets/img/WhatsApp Image 2025-06-25 at 18.39.47.jpeg" 
+                                src="./img/yullie.jpeg" 
                                 alt="Yullie's portrait" 
                                 className="w-full h-96 md:h-[500px] object-cover image-hover"
                             />
