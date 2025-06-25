@@ -114,19 +114,19 @@ export default function MainPage() {
             <Header />
             
             {/* Hero Section */}
-            <section className="relative py-16 md:py-24 px-4 md:px-8 max-w-7xl mx-auto">
+            <section className="relative py-12 ipad:py-20 ipad-pro:py-24 px-4 ipad:px-8 ipad-pro:px-12 max-w-7xl mx-auto">
                 <div className="text-center">
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-playfair font-bold text-gradient mb-6 fade-in-up leading-tight md:leading-tight lg:leading-tight pb-2">
+                    <h1 className="text-4xl ipad:text-5xl ipad-pro:text-6xl lg:text-7xl font-playfair font-bold text-gradient mb-4 ipad:mb-6 fade-in-up leading-tight pb-2">
                         Welcome to Karya Yullie ✨
                     </h1>
-                    <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto mb-8 fade-in-up">
+                    <p className="text-base ipad:text-lg ipad-pro:text-xl text-neutral-600 max-w-xl ipad:max-w-2xl mx-auto mb-6 ipad:mb-8 fade-in-up px-4 ipad:px-0">
                         Experience the art of beauty transformation through expert makeup artistry and personalized styling.
                     </p>
                     
                     {/* Stats or Message */}
                     {message && (
-                        <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full backdrop-blur-glass border border-neutral-200/20 text-neutral-700 font-medium shadow-soft">
-                            <ImageIcon size={20} className="text-ruby" />
+                        <div className="inline-flex items-center gap-2 px-4 ipad:px-6 py-2 ipad:py-3 rounded-full backdrop-blur-glass border border-neutral-200/20 text-neutral-700 font-medium shadow-soft text-sm ipad:text-base">
+                            <ImageIcon size={18} className="text-ruby ipad:w-5 ipad:h-5" />
                             {message}
                         </div>
                     )}
@@ -134,14 +134,14 @@ export default function MainPage() {
             </section>
 
             {/* Gallery Section */}
-            <section className="px-4 md:px-8 max-w-7xl mx-auto pb-16">
+            <section className="px-4 ipad:px-8 ipad-pro:px-12 max-w-7xl mx-auto pb-12 ipad:pb-16">
                 {isLoading ? (
-                    <div className="flex flex-col items-center justify-center py-20">
-                        <Loader2 className="w-8 h-8 animate-spin text-ruby mb-4" />
-                        <p className="text-neutral-600">Loading your gallery...</p>
+                    <div className="flex flex-col items-center justify-center py-16 ipad:py-20">
+                        <Loader2 className="w-6 h-6 ipad:w-8 ipad:h-8 animate-spin text-ruby mb-4" />
+                        <p className="text-neutral-600 text-sm ipad:text-base">Loading your gallery...</p>
                     </div>
                 ) : image.length > 0 ? (
-                    <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6">
+                    <div className="columns-1 tablet:columns-2 ipad:columns-3 ipad-pro:columns-4 xl:columns-4 gap-4 ipad:gap-6">
                         {image.map((img, index) => (
                             <div
                                 key={img.id}
@@ -164,29 +164,29 @@ export default function MainPage() {
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-20">
-                        <ImageIcon className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
-                        <h3 className="text-xl font-playfair text-neutral-600 mb-2">No Images Found</h3>
-                        <p className="text-neutral-500">Add some images to your /public or /src/assets folder to get started.</p>
+                    <div className="text-center py-16 ipad:py-20">
+                        <ImageIcon className="w-12 h-12 ipad:w-16 ipad:h-16 text-neutral-400 mx-auto mb-4" />
+                        <h3 className="text-lg ipad:text-xl font-playfair text-neutral-600 mb-2">No Images Found</h3>
+                        <p className="text-neutral-500 text-sm ipad:text-base">Add some images to your /public or /src/assets folder to get started.</p>
                     </div>
                 )}
             </section>
 
             {/* Image Modal */}
             {selectedImages && (
-                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="relative max-w-4xl max-h-full">
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 ipad:p-8">
+                    <div className="relative max-w-3xl ipad:max-w-5xl max-h-full">
                         <button
                             onClick={closeModal}
-                            className="absolute -top-12 mt-3 -right-1 text-white hover:text-neutral-300 transition-colors duration-200 z-10"
+                            className="absolute -top-8 ipad:-top-12 mt-3 -right-1 text-white hover:text-neutral-300 transition-colors duration-200 z-10"
                             aria-label="Close modal"
                         >
-                            <X size={32} />
+                            <X size={28} className="ipad:w-8 ipad:h-8" />
                         </button>
                         <img
                             src={selectedImages.url}
                             alt={selectedImages.name}
-                            className="max-w-full max-h-[90vh] object-contain shadow-elegant"
+                            className="max-w-full max-h-[85vh] ipad:max-h-[90vh] object-contain shadow-elegant"
                         />
                         {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
                             

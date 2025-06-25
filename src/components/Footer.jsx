@@ -25,16 +25,16 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="backdrop-blur-glass border-t border-neutral-200/20 mt-16">
-            <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
-                <div className="flex flex-col items-center space-y-6">
+        <footer className="backdrop-blur-glass border-t border-neutral-200/20 mt-12 ipad:mt-16">
+            <div className="max-w-7xl mx-auto px-4 ipad:px-8 ipad-pro:px-12 py-6 ipad:py-8">
+                <div className="flex flex-col items-center space-y-4 ipad:space-y-6">
 
-                    <div className='text-2xl font-sail text-ruby'>
+                    <div className='text-xl ipad:text-2xl font-sail text-ruby'>
                         <p>Karya Yullie</p>
                     </div>
 
                     {/* Social Links */}
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4 ipad:gap-6">
                         {socialLinks.map((link) => {
                             const IconComponent = link.icon;
                             return (
@@ -45,8 +45,8 @@ export default function Footer() {
                                     aria-label={link.name}
                                     target='blank'
                                 >
-                                    <IconComponent size={20} />
-                                    <span className="text-sm font-medium group-hover:text-inherit transition-colors duration-300">
+                                    <IconComponent size={18} className="ipad:w-5 ipad:h-5" />
+                                    <span className="text-sm ipad:text-base font-medium group-hover:text-inherit transition-colors duration-300">
                                         {link.name}
                                     </span>
                                 </a>
@@ -59,10 +59,10 @@ export default function Footer() {
 
                     {/* Copyright */}
                     <div className="text-center">
-                        <p className="text-xs text-neutral-500">
+                        <p className="text-xs ipad:text-sm text-neutral-500">
                             © {currentYear} Karya Yullie. All rights reserved.
                         </p>
-                        <p className="text-2xs text-neutral-400 mt-1">
+                        <p className="text-2xs ipad:text-xs text-neutral-400 mt-1">
                             Crafted with ❤️ and creativity
                         </p>
                     </div>

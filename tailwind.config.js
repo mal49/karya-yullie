@@ -8,6 +8,11 @@ module.exports = {
     ],
     theme: {
       extend: {
+        screens: {
+          'tablet': '640px',
+          'ipad': '768px',
+          'ipad-pro': '1024px',
+        },
         fontFamily: {
           'sail': ['Sail', 'cursive'],
           'inter': ['Inter', 'system-ui', 'sans-serif'],

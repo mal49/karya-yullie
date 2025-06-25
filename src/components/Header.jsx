@@ -16,7 +16,7 @@ export default function Header() {
 
     return (
         <div className="backdrop-blur-glass sticky top-0 z-50 border-b border-neutral-200/20">
-            <div className="flex justify-between items-center gap-8 h-14 px-4 md:px-8 py-4 w-full"> 
+            <div className="flex justify-between items-center gap-8 h-14 ipad:h-16 px-4 ipad:px-8 ipad-pro:px-12 py-4 w-full"> 
                 {/* Logo/Brand - Left Side */}
                 <div className="flex items-center">
                     <button 
@@ -24,19 +24,19 @@ export default function Header() {
                             setCurrentPage('home');
                             setIsMenuOpen(false);
                         }}
-                        className="text-2xl md:text-4xl font-sail text-gradient hover:scale-105 transition-all duration-300 tracking-wider md:tracking-widest"
+                        className="text-2xl ipad:text-3xl ipad-pro:text-4xl font-sail text-gradient hover:scale-105 transition-all duration-300 tracking-wider ipad:tracking-widest"
                     >
                         Karya Yullie
                     </button>
                 </div>
 
                 {/* Desktop Navigation - Right Side */}
-                <nav className="hidden md:flex items-center space-x-8">
+                <nav className="hidden ipad:flex items-center space-x-4 ipad-pro:space-x-8">
                     {navItems.map((item, index) => (
                         <button
                             key={item.key}
                             onClick={() => setCurrentPage(item.key)}
-                            className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group ${
+                            className={`relative px-3 ipad-pro:px-4 py-2 text-sm ipad:text-base font-medium transition-all duration-300 rounded-lg group ${
                                 currentPage === item.key
                                     ? 'text-ruby bg-ruby/5 shadow-soft'
                                     : 'text-neutral-700 hover:text-ruby hover:bg-ruby/5'
@@ -53,7 +53,7 @@ export default function Header() {
                 </nav>
 
                 {/* Mobile Menu Button - Right Side */}
-                <div className="md:hidden">
+                <div className="ipad:hidden">
                     <button 
                         onClick={() => setIsMenuOpen(!isMenuOpen)} 
                         className="text-ruby hover:text-ruby-light transition-all duration-300 p-2 rounded-lg hover:bg-ruby/5"
@@ -65,7 +65,7 @@ export default function Header() {
             </div>
 
             {/* Mobile Navigation Menu */}
-            <nav className={`md:hidden ${
+            <nav className={`ipad:hidden ${
                 isMenuOpen 
                     ? 'max-h-80 opacity-100 translate-y-0' 
                     : 'max-h-0 opacity-0 -translate-y-4'
