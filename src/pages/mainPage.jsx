@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
-import { usePage } from "../context/PageContext";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { ImageIcon, Loader2, X } from 'lucide-react';
 
 export default function MainPage() {
-    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [image, setImage] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessages] = useState('');
@@ -24,7 +24,7 @@ export default function MainPage() {
                     '/public/**/*.webp',
                     '/public/**/*.bmp'
                 ],
-                { eager: true, as: 'url' } // get direct URLs
+                { eager: true, as: 'url' }
             );
 
             const assetsImageModules = import.meta.glob(
@@ -57,11 +57,11 @@ export default function MainPage() {
                 for (const path in assetsImageModules) {
                     const url = assetsImageModules[path];
                     imageList.push({
-                    id: currentId++,
-                    url: url,
-                    name: path.split('/').pop(),
-                    path: path,
-                    folder: 'src/assets' // Indicate source folder
+                        id: currentId++,
+                        url: url,
+                        name: path.split('/').pop(),
+                        path: path,
+                        folder: 'src/assets'
                     });
                 }
             }
@@ -69,12 +69,11 @@ export default function MainPage() {
             imageList.sort((a, b) => a.name.localeCompare(b.name));
 
             setImage(imageList);
-            setCurrentIndex(0);
 
             if (imageList.length === 0) {
                 setMessages('No images found. Please place images in your /public or /src/assets/ folders.');
             } else {
-                setMessages(`Found ${imageList.length} images.`);
+                setMessages(`Discover ${imageList.length} beautiful creations`);
             }
         } catch (error) {
             console.error('Error loading images', error);
@@ -92,73 +91,111 @@ export default function MainPage() {
         setSelectedImages(image);
     };
 
-    const closeModal = (image) => {
+    const closeModal = () => {
         setSelectedImages(null);
     };
 
     useEffect(() => {
-        const handelKeyPressed = (event) => {
+        const handleKeyPressed = (event) => {
             if (event.key === 'Escape') {
                 closeModal();
             }
         };
         if (selectedImages) {
-            document.addEventListener('keydown', handelKeyPressed);
+            document.addEventListener('keydown', handleKeyPressed);
         }
         return () => {
-            document.addEventListener('keydown', handelKeyPressed);
+            document.removeEventListener('keydown', handleKeyPressed);
         };
     }, [selectedImages]);
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            const newYear = new Date().getFullYear();
-            if (newYear !== currentYear) {
-                setCurrentYear(newYear);
-            }
-        }, 1000 * 60 * 60); // Check every hour
-
-        return () => clearInterval(timer);
-    }, [currentYear]);
-
-    return(
-        <div>
+    return (
+        <div className="min-h-screen gradient-bg font-inter">
             <Header />
+            
+            {/* Hero Section */}
+            <section className="relative py-16 md:py-24 px-4 md:px-8 max-w-7xl mx-auto">
+                <div className="text-center">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-playfair font-bold text-gradient mb-6 fade-in-up leading-tight md:leading-tight lg:leading-tight pb-2">
+                        Welcome to Karya Yullie ✨
+                    </h1>
+                    <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto mb-8 fade-in-up">
+                        Experience the art of beauty transformation through expert makeup artistry and personalized styling.
+                    </p>
+                    
+                    {/* Stats or Message */}
+                    {message && (
+                        <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full backdrop-blur-glass border border-neutral-200/20 text-neutral-700 font-medium shadow-soft">
+                            <ImageIcon size={20} className="text-ruby" />
+                            {message}
+                        </div>
+                    )}
+                </div>
+            </section>
 
-            {/* body */}
-            <div className="min-h-screen"> {/* Min height screen */}
-                {image.length > 0 && !isLoading && (
-                    <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 p-4 rounded-x1 shadow-2x1 border-gray-200">
-                        {image.map((image) => (
+            {/* Gallery Section */}
+            <section className="px-4 md:px-8 max-w-7xl mx-auto pb-16">
+                {isLoading ? (
+                    <div className="flex flex-col items-center justify-center py-20">
+                        <Loader2 className="w-8 h-8 animate-spin text-ruby mb-4" />
+                        <p className="text-neutral-600">Loading your gallery...</p>
+                    </div>
+                ) : image.length > 0 ? (
+                    <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6">
+                        {image.map((img, index) => (
                             <div
-                                key={image.id}
-                                className="mb-4 break-inside-avoid-column cursor-pointer"
-                                onClick={() => openModal(image)}
+                                key={img.id}
+                                className="masonry-item"
+                                onClick={() => openModal(img)}
+                                style={{ animationDelay: `${index * 0.1}s` }}
                             >
                                 <img 
-                                src={image.url} 
-                                alt={image.name} 
-                                className="w-full shadow-md hover-shadow-xl transition-shadow duration-300 transform hover:scale-[1.02] object-cover"
-                                onError={(e) => {
-                                    console.error('Failed to load image:', error);
-                                    e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48rectIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlMGUwZTAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9ImludGVyLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2Ugbm90IGZvdW5kPC90ZXh0Pjwvc3ZnPg==';
-                                }}
+                                    src={img.url} 
+                                    alt={img.name} 
+                                    className="w-full object-cover"
+                                    loading="lazy"
+                                    onError={(e) => {
+                                        console.error('Failed to load image:', img.url);
+                                        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJpbnRlciwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
+                                    }}
                                 />
+                                <div className="absolute bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
                         ))}
                     </div>
-                )} 
+                ) : (
+                    <div className="text-center py-20">
+                        <ImageIcon className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
+                        <h3 className="text-xl font-playfair text-neutral-600 mb-2">No Images Found</h3>
+                        <p className="text-neutral-500">Add some images to your /public or /src/assets folder to get started.</p>
+                    </div>
+                )}
+            </section>
 
-                {/* footer */}
-                <div className="bg-[#FCFFE3] py-4 shadow-lg mt-8">
-                    <ul className="flex flex-row justify-center items-center gap-4 md:gap-8 text-sm text-ruby hover:text-ruby-dark transition-colors duration-300">
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">Whatsapp</a></li>
-                        <li><a href="#">Threads</a></li>
-                    </ul>
-                    <p className="text-center text-xs text-gray-500 mt-2">© {currentYear} Karya Yullie. All rights reserved.</p>
+            {/* Image Modal */}
+            {selectedImages && (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="relative max-w-4xl max-h-full">
+                        <button
+                            onClick={closeModal}
+                            className="absolute -top-12 mt-3 -right-1 text-white hover:text-neutral-300 transition-colors duration-200 z-10"
+                            aria-label="Close modal"
+                        >
+                            <X size={32} />
+                        </button>
+                        <img
+                            src={selectedImages.url}
+                            alt={selectedImages.name}
+                            className="max-w-full max-h-[90vh] object-contain shadow-elegant"
+                        />
+                        {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+                            
+                        </div> */}
+                    </div>
                 </div>
-            </div>
+            )}
+
+            <Footer />
         </div>
     );
 }

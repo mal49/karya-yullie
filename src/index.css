@@ -1,3 +1,92 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Sail&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@layer base {
+  * {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    background: linear-gradient(135deg, #fefce8 0%, #f9fafb 50%, #f3f4f6 100%);
+    background-attachment: fixed;
+    background-size: 100% 100%;
+  }
+  
+  .card-hover {
+    @apply transform transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-xl;
+  }
+  
+  .image-hover {
+    @apply transform transition-all duration-500 ease-out hover:scale-105 hover:shadow-2xl;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #80002A, #B3003A, #E60049);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .backdrop-blur-glass {
+    backdrop-filter: blur(10px);
+    background: rgba(252, 255, 227, 0.8);
+  }
+  
+  .floating-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .masonry-item {
+    @apply mb-4 break-inside-avoid-column cursor-pointer overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300;
+  }
+  
+  .masonry-item:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}

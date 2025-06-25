@@ -1,5 +1,8 @@
 import MainPage from "./pages/mainPage";
 import AboutPage from "./pages/aboutPage";
+import Collaboration from "./pages/collaboration";
+import ServicePage from "./pages/service";
+import Contact from "./pages/contact";
 import { PageProvider, usePage } from "./context/PageContext";
 
 function AppContent() {
@@ -12,16 +15,18 @@ function AppContent() {
       case 'about':
         return <AboutPage />;
       case 'collaboration':
-        return <MainPage />; // Temporary, replace with CollaborationPage when created
-      case 'booking':
-        return <MainPage />; // Temporary, replace with BookingPage when created
+        return <Collaboration />;
+      case 'service':
+        return <ServicePage />;
+      case 'contact':
+        return <Contact />;
       default:
         return <MainPage />;
     }
   }
 
   return(
-    <div className="min-h-screen bg-[#FCFFE3] font-roboto m-0 p-0 dark:bg-[#FCFFE3]">
+    <div className="min-h-screen gradient-bg font-inter m-0 p-0">
       {renderPage()}
     </div>
   );
