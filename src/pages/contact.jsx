@@ -7,7 +7,7 @@ export default function Contact() {
         {
             name: 'Instagram',
             icon: Instagram,
-            href: '#',
+            href: 'https://www.instagram.com/karyayullie?utm_source=ig_web_button_share_sheet&igsh=MThsYnBlaWJraWN2cg==',
             color: 'bg-gradient-to-r from-purple-500 to-pink-500',
             textColor: 'text-white'
         },
@@ -21,7 +21,7 @@ export default function Contact() {
         {
             name: 'Threads',
             icon: AtSign,
-            href: '#',
+            href: 'https://www.threads.com/@karyayullie',
             color: 'bg-black',
             textColor: 'text-white'
         }
@@ -40,11 +40,11 @@ export default function Contact() {
             {/* Main Content - Centered */}
             <div className="flex-1 flex items-center px-4 ipad:px-8 py-12 ipad:py-16">
                 <div className="w-full max-w-6xl mx-auto">
-                    <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-center justify-center">
+                    <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start justify-center">
                         {/* Profile Card */}
                         <div className="w-full max-w-sm ipad:max-w-md">
                             {/* Profile Card */}
-                            <div className="bg-white rounded-3xl shadow-elegant p-6 ipad:p-8 text-center">
+                            <div className="bg-white rounded-3xl shadow-elegant p-6 ipad:p-8 text-center mt-20">
                                 {/* Profile Image with Instagram-style border */}
                                 <div className="relative inline-block mb-4 ipad:mb-6">
                                     <div className="w-20 h-20 ipad:w-28 ipad:h-28 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 p-1">
@@ -78,28 +78,28 @@ export default function Contact() {
                                 </div>
 
                                 {/* Stats */}
-                                <div className="flex justify-around mb-6 ipad:mb-8 py-3 ipad:py-4 border-t border-b border-gray-100">
+                                <div className="grid grid-cols-3 gap-4 mb-6 ipad:mb-8 py-3 ipad:py-4 border-t border-b border-gray-100">
                                     {stats.map((stat, index) => (
                                         <div key={index} className="text-center">
-                                            <div className="text-base ipad:text-lg font-semibold text-gray-900">{stat.number}</div>
+                                            <div className="text-base ipad:text-xl font-semibold text-gray-900">{stat.number}</div>
                                             <div className="text-xs ipad:text-sm text-gray-500 uppercase tracking-wide">{stat.label}</div>
                                         </div>
                                     ))}
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="space-y-3">
+                                <div className="space-y-2 ipad:space-y-3">
                                     {socialLinks.map((link, index) => {
                                         const IconComponent = link.icon;
                                         return (
                                             <a
                                                 key={link.name}
                                                 href={link.href}
-                                                className={`w-full flex items-center justify-center gap-3 py-3 ipad:py-4 px-4 ipad:px-6 rounded-xl ${link.color} ${link.textColor} text-sm ipad:text-base font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+                                                className={`w-full flex items-center justify-center gap-2 py-2.5 ipad:py-3 px-4 ipad:px-6 rounded-xl ${link.color} ${link.textColor} text-sm ipad:text-base font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
                                                 style={{ animationDelay: `${index * 0.1}s` }}
                                                 target="blank"
                                             >
-                                                <IconComponent size={16} className="ipad:w-5 ipad:h-5" />
+                                                <IconComponent size={18} className="ipad:w-5 ipad:h-5" />
                                                 <span>{link.name === 'WhatsApp' ? 'Chat on Whatsapp' : `Follow on ${link.name}`}</span>
                                             </a>
                                         );
@@ -138,8 +138,8 @@ export default function Contact() {
                         </div>
 
                         {/* Form Section */}
-                        <div className="w-full max-w-xl ipad:max-w-2xl lg:max-w-4xl mb-8">
-                            <div className="bg-white rounded-xl p-4 ipad:p-6 border border-black-200">
+                        <div className="w-full max-w-xl ipad:max-w-2xl lg:max-w-4xl flex flex-col">
+                            <div className="flex-1 bg-white rounded-xl p-4 ipad:p-6 border border-black-200">
                                 <div className="text-center mb-6">
                                     <h2 className="text-lg ipad:text-xl font-playfair text-gray-800 mb-2">
                                         Book Your Makeup Session
