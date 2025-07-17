@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import React, { useState } from "react";
 import { Instagram, MessageCircle, AtSign, BadgeCheck, ExternalLink } from 'lucide-react';
 
 export default function Contact() {
@@ -46,7 +47,7 @@ export default function Contact() {
                         {/* Profile Card */}
                         <div className="w-full max-w-sm ipad:max-w-md">
                             {/* Profile Card */}
-                            <div className="bg-white rounded-3xl shadow-elegant p-6 ipad:p-8 text-center mt-20">
+                            <div className="bg-white rounded-3xl shadow-elegant p-6 ipad:p-8 text-center lg:mt-20">
                                 {/* Profile Image with Instagram-style border */}
                                 <div className="relative inline-block mb-4 ipad:mb-6">
                                     <div className="w-20 h-20 ipad:w-28 ipad:h-28 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 p-1">
