@@ -1,29 +1,28 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import React, { useState } from "react";
-import { Instagram, MessageCircle, AtSign, BadgeCheck, ExternalLink } from 'lucide-react';
+import { FaThreads, FaWhatsapp, FaInstagram } from "react-icons/fa6";
+import { BadgeCheck, ExternalLink } from 'lucide-react';
 
 export default function Contact() {
     const socialLinks = [
         {
             name: 'Instagram',
-            icon: Instagram,
-            href: 'https://www.instagram.com/karyayullie?utm_source=ig_web_button_share_sheet&igsh=MThsYnBlaWJraWN2cg==',
+            icon: FaInstagram,
             href: 'https://www.instagram.com/karyayullie?utm_source=ig_web_button_share_sheet&igsh=MThsYnBlaWJraWN2cg==',
             color: 'bg-gradient-to-r from-purple-500 to-pink-500',
             textColor: 'text-white'
         },
         {
             name: 'WhatsApp',
-            icon: MessageCircle,
+            icon: FaWhatsapp,
             href: '#',
             color: 'bg-green-500',
             textColor: 'text-white'
         },
         {
             name: 'Threads',
-            icon: AtSign,
-            href: 'https://www.threads.com/@karyayullie',
+            icon: FaThreads,
             href: 'https://www.threads.com/@karyayullie',
             color: 'bg-black',
             textColor: 'text-white'
