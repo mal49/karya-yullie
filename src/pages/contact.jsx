@@ -94,7 +94,7 @@ export default function Contact() {
         } catch(error) {
             setStatus(`An error occurred while connecting to the server.`);
             console.error('Fetch error:', error);
-        };
+        }
     };
     
     return(

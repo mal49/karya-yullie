@@ -52,7 +52,7 @@ export default {
       };
 
       const telegramMessage = `
-*New Event Booking Submission!*
+*New Event Booking Submission\\!*
 ---
 *Name:* ${escapeMarkdownV2(name)}
 *Phone Number:* ${escapeMarkdownV2(phoneNumber)}
