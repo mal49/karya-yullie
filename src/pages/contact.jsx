@@ -1,9 +1,21 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Instagram, MessageCircle, AtSign, BadgeCheck, ExternalLink } from 'lucide-react';
 
 export default function Contact() {
+    // State variables for the form
+    const [name, setName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [eventType, setEventType] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [venue, setVenue] = useState('');
+    const [isBride, setIsBride] = useState('');
+    const [pax, setPax] = useState('');
+    const [budget, setBudget] = useState('');
+    const [status, setStatus] = useState('');
+
     const socialLinks = [
         {
             name: 'Instagram',
@@ -35,6 +47,56 @@ export default function Contact() {
         { number: '100+', label: 'Clients' },
         { number: '3+', label: 'Years' }
     ];
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setStatus('Sending...');
+
+        const formData = {
+            name,
+            phoneNumber,
+            eventType,
+            date,
+            time,
+            venue,
+            isBride,
+            pax,
+            budget,
+        };
+
+        try {
+            const workerURL = ''; //cloudflare worker url here e.g., 'https://your-worker-name.your-account.workers.dev'
+            
+            const response = await fetch(workerURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if(response.ok) {
+                setStatus('Booking info sent successfully!');
+                //clear form
+                setName('');
+                setPhoneNumber('');
+                setEventType('');
+                setDate('');
+                setTime('');
+                setVenue('');
+                setIsBride('');
+                setPax('');
+                setBudget('');
+            } else {
+                const errorData = await response.json();
+                setStatus(`Failed to send booking info: ${errorData.error || 'Unknown Error'}`);
+                console.error('Error from worker:', errorData);
+            }
+        } catch(error) {
+            setStatus(`An error occurred while connecting to the server.`);
+            console.error('Fetch error:', error);
+        };
+    };
     
     return(
         <div className="min-h-screen gradient-bg font-inter flex flex-col">
@@ -150,17 +212,50 @@ export default function Contact() {
                                     <p className="text-sm text-gray-600">Please provide the following details for your booking</p>
                                 </div>
 
-                                <form className="space-y-3 ipad:space-y-4">
+                                {/* Status Display */}
+                                {status && (
+                                    <div className={`p-3 rounded-lg text-center text-sm font-medium ${
+                                        status.includes('successfully') 
+                                            ? 'bg-green-100 text-green-700 border border-green-200' 
+                                            : status.includes('Failed') || status.includes('error') 
+                                            ? 'bg-red-100 text-red-700 border border-red-200'
+                                            : 'bg-blue-100 text-blue-700 border border-blue-200'
+                                    }`}>
+                                        {status}
+                                    </div>
+                                )}
+
+                                <form 
+                                onSubmit={handleSubmit}
+                                className="space-y-3 ipad:space-y-4"
+                                >
                                     {/* Name Field */}
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
                                             What's your name? <span className="text-red-500">*</span>
                                         </label>
                                         <input 
-                                            type="text" 
+                                            type="text"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
                                             required
                                             className="w-full px-3 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
                                             placeholder="e.g. Yullie"
+                                        />
+                                    </div>
+
+                                    {/* Phone Number */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            What's your phone number? <span className="text-red-500">*</span>
+                                        </label>
+                                        <input 
+                                        type="text" 
+                                        value={phoneNumber}
+                                        onChange={(e) => setPhoneNumber(e.target.value)}
+                                        required
+                                        className="w-full px-3 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
+                                        placeholder="e.g. 0123456789"
                                         />
                                     </div>
 
@@ -170,6 +265,8 @@ export default function Contact() {
                                             What's the occasion? <span className="text-red-500">*</span>
                                         </label>
                                         <select 
+                                            value={eventType}
+                                            onChange={(e) => setEventType(e.target.value)}
                                             required
                                             className="w-full px-3 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
                                         >
@@ -193,6 +290,8 @@ export default function Contact() {
                                                 <label className="block text-xs font-medium text-gray-600 mb-1">Date</label>
                                                 <input 
                                                     type="date" 
+                                                    value={date}
+                                                    onChange={(e) => setDate(e.target.value)}
                                                     required
                                                     className="w-full px-3 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
                                                 />
@@ -200,6 +299,8 @@ export default function Contact() {
                                             <div>
                                                 <label className="block text-xs font-medium text-gray-600 mb-1">Preferred start time</label>
                                                 <select 
+                                                    value={time}
+                                                    onChange={(e) => setTime(e.target.value)}
                                                     required
                                                     className="w-full px-3 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
                                                 >
@@ -241,6 +342,8 @@ export default function Contact() {
                                             Where will the makeup session take place? <span className="text-red-500">*</span>
                                         </label>
                                         <textarea 
+                                            value={venue}
+                                            onChange={(e) => setVenue(e.target.value)}
                                             required
                                             rows="3"
                                             className="w-full px-3 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all resize-none"
@@ -248,10 +351,12 @@ export default function Contact() {
                                         ></textarea>
                                     </div>
 
-                                    {/* Are you the bride */}
+                                    {/* Who is the makeup for - conditional based on event type */}
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Are you the bride? <span className="text-red-500">*</span>
+                                            {eventType === 'wedding' ? 'Are you the bride?' : 
+                                                eventType === 'engagement' ? 'Are you the bride-to-be?' :
+                                                'Who is the makeup for?'} <span className="text-red-500">*</span>
                                         </label>
                                         <div className="flex gap-6">
                                             <label className="flex items-center cursor-pointer">
@@ -259,20 +364,32 @@ export default function Contact() {
                                                     type="radio" 
                                                     name="is_bride" 
                                                     value="yes" 
+                                                    checked={isBride === 'yes'}
+                                                    onChange={(e) => setIsBride(e.target.value)}
                                                     required
                                                     className="mr-2 text-pink-500 focus:ring-gray-500"
                                                 />
-                                                <span className="text-base text-gray-700">Yes, I am</span>
+                                                <span className="text-base text-gray-700">
+                                                    {eventType === 'wedding' ? 'Yes, I am the bride' : 
+                                                        eventType === 'engagement' ? 'Yes, I am the bride-to-be' :
+                                                        'For me'}
+                                                </span>
                                             </label>
                                             <label className="flex items-center cursor-pointer">
                                                 <input 
                                                     type="radio" 
                                                     name="is_bride" 
                                                     value="no" 
+                                                    checked={isBride === 'no'}
+                                                    onChange={(e) => setIsBride(e.target.value)}
                                                     required
                                                     className="mr-2 text-pink-500 focus:ring-gray-500"
                                                 />
-                                                <span className="text-base text-gray-700">No, someone else</span>
+                                                <span className="text-base text-gray-700">
+                                                    {eventType === 'wedding' ? 'No, for someone else' : 
+                                                        eventType === 'engagement' ? 'No, for someone else' :
+                                                        'For someone else'}
+                                                </span>
                                             </label>
                                         </div>
                                     </div>
@@ -285,6 +402,8 @@ export default function Contact() {
                                         <input 
                                             type="number" 
                                             min="1"
+                                            value={pax}
+                                            onChange={(e) => setPax(e.target.value)}
                                             required
                                             className="w-full px-3 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
                                             placeholder="e.g. 3 people"
@@ -297,6 +416,8 @@ export default function Contact() {
                                             What's your budget range? <span className="text-red-500">*</span>
                                         </label>
                                         <select 
+                                            value={budget}
+                                            onChange={(e) => setBudget(e.target.value)}
                                             required
                                             className="w-full px-3 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
                                         >
