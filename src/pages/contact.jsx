@@ -64,7 +64,7 @@ export default function Contact() {
         };
 
         try {
-            const workerURL = ''; //cloudflare worker url here e.g., 'https://your-worker-name.your-account.workers.dev'
+            const workerURL = 'https://karya-yullie-worker.ikhmalhanif60.workers.dev'; //cloudflare worker url here e.g., 'https://your-worker-name.your-account.workers.dev'
             
             const response = await fetch(workerURL, {
                 method: 'POST',
