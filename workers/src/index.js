@@ -51,23 +51,57 @@ export default {
         return text.replace(/([_*[\]()~`>#+\-=|{}.!])/g, '\\$1');
       };
 
+      // Format Malaysian phone number for WhatsApp (remove +60 and leading zeros, ensure proper format)
+      const formatWhatsAppNumber = (phoneNumber) => {
+        let cleanNumber = phoneNumber.replace(/\D/g, ''); // Remove non-digits
+        
+        // Handle Malaysian numbers
+        if (cleanNumber.startsWith('60')) {
+          return cleanNumber; // Already in international format without +
+        } else if (cleanNumber.startsWith('0')) {
+          return '60' + cleanNumber.slice(1); // Remove leading 0 and add 60
+        } else {
+          return '60' + cleanNumber; // Add 60 prefix
+        }
+      };
+
+      const whatsappNumber = formatWhatsAppNumber(phoneNumber);
+      const whatsappLink = `https://wa.me/${whatsappNumber}`;
+
+      // Determine role with proper emojis
+      const getRoleText = () => {
+        if (eventType === 'wedding') {
+          return isBride === 'yes' ? '👰 Bride' : '👥 Booking for someone else';
+        } else if (eventType === 'engagement') {
+          return isBride === 'yes' ? '💍 Bride\\-to\\-be' : '👥 Booking for someone else';
+        } else {
+          return isBride === 'yes' ? '🙋‍♀️ For themselves' : '👥 Booking for someone else';
+        }
+      };
+
       const telegramMessage = `
-*New Event Booking Submission\\!*
-*Name:* ${escapeMarkdownV2(name)}
-*Phone Number:* ${escapeMarkdownV2(phoneNumber)}
-*Event Type:* ${escapeMarkdownV2(eventType)}
-*Date:* ${escapeMarkdownV2(date)}
-*Time:* ${escapeMarkdownV2(time)}
-*Venue:* ${escapeMarkdownV2(venue)}
-*Role:* ${
-  eventType === 'wedding' 
-    ? (isBride === 'yes' ? 'Bride' : 'Booking for someone else')
-    : eventType === 'engagement'
-    ? (isBride === 'yes' ? 'Bride-to-be' : 'Booking for someone else')
-    : (isBride === 'yes' ? 'For themselves' : 'Booking for someone else')
-}
-*Number of Pax:* ${escapeMarkdownV2(pax.toString())}
-*Budget:* ${escapeMarkdownV2(budget.toString())}
+🎉 *NEW EVENT BOOKING SUBMISSION*
+
+👤 *Client Details:*
+• *Name:* ${escapeMarkdownV2(name)}
+• *Phone:* ${escapeMarkdownV2(phoneNumber)}
+
+📋 *Event Information:*
+• *Type:* ${escapeMarkdownV2(eventType.charAt(0).toUpperCase() + eventType.slice(1))} 🎊
+• *Date:* ${escapeMarkdownV2(date)} 📅
+• *Time:* ${escapeMarkdownV2(time)} ⏰
+• *Venue:* ${escapeMarkdownV2(venue)} 📍
+• *Role:* ${getRoleText()}
+
+👥 *Event Details:*
+• *Number of Pax:* ${escapeMarkdownV2(pax.toString())} people
+• *Budget:* RM ${escapeMarkdownV2(budget.toString())} 💰
+
+📱 *Quick Actions:*
+[Chat on WhatsApp](${whatsappLink}) 💬
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+*Karya Yullie Event Services* ✨
       `.trim();
 
       const telegramApiUrl = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`;
