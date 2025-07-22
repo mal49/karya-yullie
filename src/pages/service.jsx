@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { CheckCircle, Palette, Sparkles, Heart, Crown, ArrowLeft, MessageCircle, Star, Users, Clock } from 'lucide-react';
@@ -96,14 +96,39 @@ export default function ServicePage() {
     const [selectedService, setSelectedService] = useState(null);
     const [showMobileDetail, setShowMobileDetail] = useState(false);
 
+    // Handle browser back/forward buttons
+    useEffect(() => {
+        const handlePopState = (event) => {
+            // If we're currently showing detail view and user clicks back button,
+            // hide the detail view and show the service grid
+            if (showMobileDetail) {
+                setShowMobileDetail(false);
+                setSelectedService(null);
+            }
+        };
+
+        window.addEventListener('popstate', handlePopState);
+        
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [showMobileDetail]);
+
     const handleServiceClick = (service) => {
         setSelectedService(service);
         setShowMobileDetail(true);
+        
+        // Push new state to browser history so back button works correctly
+        window.history.pushState(
+            { serviceDetail: true, serviceId: service.id }, 
+            '', 
+            window.location.pathname + window.location.search
+        );
     };
 
     const handleBackClick = () => {
-        setShowMobileDetail(false);
-        setSelectedService(null);
+        // Use history.back() to trigger the same popstate flow as browser back button
+        window.history.back();
     };
 
     // Mobile Service Detail View Component
@@ -201,65 +226,63 @@ export default function ServicePage() {
                         return (
                             <div 
                                 key={service.id}
-                                className="relative backdrop-blur-glass border border-neutral-200/20 rounded-2xl p-6 ipad:p-8 shadow-soft hover:shadow-elegant transition-all duration-300 card-hover"
+                                className="relative backdrop-blur-glass border border-neutral-200/20 rounded-2xl ipad:p-8 shadow-soft hover:shadow-elegant transition-all duration-300 card-hover overflow-hidden"
                                 style={{ animationDelay: `${index * 0.1}s` }}
                             >
-                                {/* Popular Badge */}
-                                {service.popular && (
-                                    <div className="absolute -top-3 left-6 px-4 py-1 bg-gradient-to-r from-ruby to-ruby-light text-white text-xs font-semibold rounded-full shadow-soft">
-                                        Most Popular
-                                    </div>
-                                )}
+
 
                                 <div className="flex flex-col h-full">
                                     {/* Mobile Layout */}
                                     <div className="ipad:hidden">
-                                        {/* Image Placeholder - Mobile */}
+                                        {/* Image Placeholder - Mobile - Full width of card */}
                                         <div 
-                                            className="w-full h-24 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-lg flex items-center justify-center mb-3 cursor-pointer"
+                                            className="w-full h-32 bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center cursor-pointer"
                                             onClick={() => handleServiceClick(service)}
                                         >
-                                            <Palette className="w-8 h-8 text-neutral-400" />
+                                            <Palette className="w-10 h-10 text-neutral-400" />
                                         </div>
 
-                                        {/* Title - Mobile */}
-                                        <h3 
-                                            className="text-sm font-playfair font-bold text-neutral-800 mb-2 cursor-pointer"
-                                            onClick={() => handleServiceClick(service)}
-                                        >
-                                            {service.title}
-                                        </h3>
+                                        {/* Content with padding */}
+                                        <div className="p-6">
+                                            {/* Title - Mobile */}
+                                            <h3 
+                                                className="text-sm font-playfair font-bold text-neutral-800 mb-2 cursor-pointer"
+                                                onClick={() => handleServiceClick(service)}
+                                            >
+                                                {service.title}
+                                            </h3>
 
-                                        {/* Features List - Mobile */}
-                                        <div className="mb-3">
-                                            <ul className="space-y-1">
-                                                {service.features.slice(0, 4).map((feature, featureIndex) => (
-                                                    <li key={featureIndex} className="flex items-center gap-1 text-xs text-neutral-600">
-                                                        <div className="w-1 h-1 bg-neutral-400 rounded-full flex-shrink-0"></div>
-                                                        <span>{feature}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                            {/* Features List - Mobile */}
+                                            <div className="mb-3">
+                                                <ul className="space-y-1">
+                                                    {service.features.slice(0, 4).map((feature, featureIndex) => (
+                                                        <li key={featureIndex} className="flex items-center gap-1 text-xs text-neutral-600">
+                                                            <div className="w-1 h-1 bg-neutral-400 rounded-full flex-shrink-0"></div>
+                                                            <span>{feature}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+
+                                            {/* Price - Mobile */}
+                                            <div 
+                                                className="text-base font-playfair font-bold text-gradient mb-3 cursor-pointer"
+                                                onClick={() => handleServiceClick(service)}
+                                            >
+                                                {service.price.replace(/\.00/g, '').replace(' - ', '-')}
+                                            </div>
+
+                                            {/* Book Now Button - Mobile */}
+                                            <button 
+                                                className="w-full bg-gradient-to-r from-ruby to-ruby-light text-white font-semibold py-2 px-4 rounded-lg text-xs hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    // Handle book now action here
+                                                }}
+                                            >
+                                                BOOK NOW
+                                            </button>
                                         </div>
-
-                                        {/* Price - Mobile */}
-                                        <div 
-                                            className="text-base font-playfair font-bold text-gradient mb-3 cursor-pointer"
-                                            onClick={() => handleServiceClick(service)}
-                                        >
-                                            {service.price.replace(/\.00/g, '').replace(' - ', '-')}
-                                        </div>
-
-                                        {/* Book Now Button - Mobile */}
-                                        <button 
-                                            className="w-full bg-gradient-to-r from-ruby to-ruby-light text-white font-semibold py-2 px-4 rounded-lg text-xs hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                // Handle book now action here
-                                            }}
-                                        >
-                                            BOOK NOW
-                                        </button>
                                     </div>
 
                                     {/* Desktop/Tablet Layout */}
