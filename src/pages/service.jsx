@@ -1,141 +1,109 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { CheckCircle, Palette, Sparkles, Heart, Crown, ArrowLeft, MessageCircle, Star, Users, Clock } from 'lucide-react';
 
+// Move services array outside component to prevent recreation on every render
+const services = [
+    {
+        id: 1,
+        icon: Heart,
+        title: "BRIDAL MAKEUP",
+        price: "RM 200.00 - RM 300.00",
+        features: [
+            "Hair trial free",
+            "Long-lasting makeup",
+            "Professional products",
+            "Touch-up kit included",
+            "Photo-ready finish"
+        ],
+        description: "Perfect makeup for your special day. Whether you want spectacular bridal look or day-time fresh & natural tone, Yullie's experienced craftsmanship for your best and less stressful approach for a beautiful finish. Create natural beauty that goes from day to night with a professional finish.",
+        popular: true
+    },
+    {
+        id: 2,
+        icon: Sparkles,
+        title: "PARTY MAKEUP",
+        price: "RM 60.00 - RM 100.00",
+        features: [
+            "Bold night look",
+            "Long-lasting makeup",
+            "Glamorous finish",
+            "Custom color palette",
+            "Professional application"
+        ],
+        description: "Dah berhama' lama sangat dekat office loh muka tak di-makeup properly. Now time to give yourself a treat! Get ready to rock your night with our glamorous party makeup that complements you from sunset and lets you glow all night long. Create lasting impact from day to night with perfect blend."
+    },
+    {
+        id: 3,
+        icon: Palette,
+        title: "EVERYDAY MAKEUP",
+        price: "RM 40.00 - RM 80.00",
+        features: [
+            "Natural daily look",
+            "Quick application",
+            "Lightweight formula",
+            "Office-appropriate",
+            "Fresh appearance"
+        ],
+        description: "Dah berhama' lama sangat dekat office loh muka tak di-makeup properly. Allow us to make you look fresh and natural everyday. We use lightweight formulas that enhance your natural beauty without looking overdone. Perfect for daily wear, office meetings, and casual outings."
+    },
+    {
+        id: 4,
+        icon: Crown,
+        title: "CONVOCATION MAKEUP",
+        price: "RM 70.00 - RM 120.00",
+        features: [
+            "Graduation special",
+            "Camera-ready look",
+            "Long-lasting wear",
+            "Professional finish",
+            "Memorable photos"
+        ],
+        description: "Your graduation day deserves the perfect look! Our convocation makeup service ensures you look stunning in all your photos and feel confident during your special ceremony. We create a polished, camera-ready look that will make your achievement shine even brighter."
+    },
+    {
+        id: 5,
+        icon: Sparkles,
+        title: "MAKEUP STYLE",
+        price: "RM 50.00 - RM 90.00",
+        features: [
+            "Chair test free",
+            "Long test free",
+            "Chair test free",
+            "Long test free",
+            "Chair test free"
+        ],
+        description: "Dah berhama' lama sangat dekat office toh muka tak di-makeup properly. Amcing foto keje lah semua nak dok ampit. Ohh! Amazing photo keje lah semua nak dok ampit ohh! Create natural beauty that looks great on social media for a beautiful finish."
+    },
+    {
+        id: 6,
+        icon: Heart,
+        title: "MAKEUP STYLE",
+        price: "RM 65.00 - RM 105.00",
+        features: [
+            "Chair test free",
+            "Long test free",
+            "Chair test free",
+            "Long test free",
+            "Chair test free"
+        ],
+        description: "Dah berhama' lama sangat dekat office toh muka tak di-makeup properly. Amcing foto keje lah semua nak dok ampit. Ohh! Amazing photo keje lah semua nak dok ampit ohh! Create natural beauty that looks great on social media for a beautiful finish."
+    }
+];
+
 export default function ServicePage() {
     const [selectedService, setSelectedService] = useState(null);
     const [showMobileDetail, setShowMobileDetail] = useState(false);
-    const services = [
-        {
-            id: 1,
-            icon: Heart,
-            title: "BRIDAL MAKEUP",
-            price: "RM 200.00 - RM 300.00",
-            features: [
-                "Hair trial free",
-                "Long-lasting makeup",
-                "Professional products",
-                "Touch-up kit included",
-                "Photo-ready finish"
-            ],
-            description: "Perfect makeup for your special day. Whether you want spectacular bridal look or day-time fresh & natural tone, Yullie's experienced craftsmanship for your best and less stressful approach for a beautiful finish. Create natural beauty that goes from day to night with a professional finish.",
-            popular: true
-        },
-        {
-            id: 2,
-            icon: Sparkles,
-            title: "PARTY MAKEUP",
-            price: "RM 60.00 - RM 100.00",
-            features: [
-                "Bold night look",
-                "Long-lasting makeup",
-                "Glamorous finish",
-                "Custom color palette",
-                "Professional application"
-            ],
-            description: "Dah berhama' lama sangat dekat office loh muka tak di-makeup properly. Now time to give yourself a treat! Get ready to rock your night with our glamorous party makeup that complements you from sunset and lets you glow all night long. Create lasting impact from day to night with perfect blend."
-        },
-        {
-            id: 3,
-            icon: Palette,
-            title: "EVERYDAY MAKEUP",
-            price: "RM 40.00 - RM 80.00",
-            features: [
-                "Natural daily look",
-                "Quick application",
-                "Lightweight formula",
-                "Office-appropriate",
-                "Fresh appearance"
-            ],
-            description: "Dah berhama' lama sangat dekat office loh muka tak di-makeup properly. Allow us to make you look fresh and natural everyday. We use lightweight formulas that enhance your natural beauty without looking overdone. Perfect for daily wear, office meetings, and casual outings."
-        },
-        {
-            id: 4,
-            icon: Crown,
-            title: "CONVOCATION MAKEUP",
-            price: "RM 70.00 - RM 120.00",
-            features: [
-                "Graduation special",
-                "Camera-ready look",
-                "Long-lasting wear",
-                "Professional finish",
-                "Memorable photos"
-            ],
-            description: "Your graduation day deserves the perfect look! Our convocation makeup service ensures you look stunning in all your photos and feel confident during your special ceremony. We create a polished, camera-ready look that will make your achievement shine even brighter."
-        },
-        {
-            id: 5,
-            icon: Sparkles,
-            title: "MAKEUP STYLE",
-            price: "RM 50.00 - RM 90.00",
-            features: [
-                "Chair test free",
-                "Long test free",
-                "Chair test free",
-                "Long test free",
-                "Chair test free"
-            ],
-            description: "Dah berhama' lama sangat dekat office toh muka tak di-makeup properly. Amcing foto keje lah semua nak dok ampit. Ohh! Amazing photo keje lah semua nak dok ampit ohh! Create natural beauty that looks great on social media for a beautiful finish."
-        },
-        {
-            id: 6,
-            icon: Heart,
-            title: "MAKEUP STYLE",
-            price: "RM 65.00 - RM 105.00",
-            features: [
-                "Chair test free",
-                "Long test free",
-                "Chair test free",
-                "Long test free",
-                "Chair test free"
-            ],
-            description: "Dah berhama' lama sangat dekat office toh muka tak di-makeup properly. Amcing foto keje lah semua nak dok ampit. Ohh! Amazing photo keje lah semua nak dok ampit ohh! Create natural beauty that looks great on social media for a beautiful finish."
-        }
-    ];
-
-    // Handle URL hash for mobile detail view navigation
-    useEffect(() => {
-        const handleHashChange = () => {
-            const hash = window.location.hash;
-            if (hash.startsWith('#service-')) {
-                const serviceId = parseInt(hash.replace('#service-', ''));
-                const service = services.find(s => s.id === serviceId);
-                if (service) {
-                    setSelectedService(service);
-                    setShowMobileDetail(true);
-                }
-            } else if (showMobileDetail) {
-                // Hash was removed, go back to service grid
-                setShowMobileDetail(false);
-                setSelectedService(null);
-            }
-        };
-
-        // Listen for hash changes (including browser back button)
-        window.addEventListener('hashchange', handleHashChange);
-        
-        // Check initial hash on mount
-        handleHashChange();
-        
-        return () => {
-            window.removeEventListener('hashchange', handleHashChange);
-        };
-    }, [services, showMobileDetail]);
 
     const handleServiceClick = (service) => {
-        // Change hash instead of creating new history entry
-        window.location.hash = `service-${service.id}`;
+        setSelectedService(service);
+        setShowMobileDetail(true);
     };
 
     const handleBackClick = () => {
-        // Remove hash to go back to service grid
-        if (window.location.hash) {
-            window.history.back();
-        } else {
-            setShowMobileDetail(false);
-            setSelectedService(null);
-        }
+        setShowMobileDetail(false);
+        setSelectedService(null);
     };
 
     // Mobile Service Detail View Component
@@ -245,17 +213,20 @@ export default function ServicePage() {
 
                                 <div className="flex flex-col h-full">
                                     {/* Mobile Layout */}
-                                    <div 
-                                        className="ipad:hidden cursor-pointer"
-                                        onClick={() => handleServiceClick(service)}
-                                    >
+                                    <div className="ipad:hidden">
                                         {/* Image Placeholder - Mobile */}
-                                        <div className="w-full h-24 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-lg flex items-center justify-center mb-3">
+                                        <div 
+                                            className="w-full h-24 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-lg flex items-center justify-center mb-3 cursor-pointer"
+                                            onClick={() => handleServiceClick(service)}
+                                        >
                                             <Palette className="w-8 h-8 text-neutral-400" />
                                         </div>
 
                                         {/* Title - Mobile */}
-                                        <h3 className="text-sm font-playfair font-bold text-neutral-800 mb-2">
+                                        <h3 
+                                            className="text-sm font-playfair font-bold text-neutral-800 mb-2 cursor-pointer"
+                                            onClick={() => handleServiceClick(service)}
+                                        >
                                             {service.title}
                                         </h3>
 
@@ -272,7 +243,10 @@ export default function ServicePage() {
                                         </div>
 
                                         {/* Price - Mobile */}
-                                        <div className="text-base font-playfair font-bold text-gradient mb-3">
+                                        <div 
+                                            className="text-base font-playfair font-bold text-gradient mb-3 cursor-pointer"
+                                            onClick={() => handleServiceClick(service)}
+                                        >
                                             {service.price.replace(/\.00/g, '').replace(' - ', '-')}
                                         </div>
 
