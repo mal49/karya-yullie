@@ -110,14 +110,14 @@ export default function MainPage() {
     }, [selectedImages]);
 
     return (
-        <div className="min-h-screen gradient-bg font-inter">
+        <div className="min-h-screen w-full gradient-bg font-inter">
             <Header />
             
             {/* Hero Section */}
             <section className="relative py-12 ipad:py-20 ipad-pro:py-24 px-4 ipad:px-8 ipad-pro:px-12 max-w-7xl mx-auto">
                 <div className="text-center">
                     <h1 className="text-4xl ipad:text-5xl lg:text-7xl font-playfair font-bold text-gradient mb-4 ipad:mb-6 fade-in-up leading-tight pb-2">
-                        Welcome to Karya Yullie ✨
+                        Welcome to Karya Yullie
                     </h1>
                     <p className="text-base ipad:text-lg ipad-pro:text-xl text-neutral-600 max-w-xl ipad:max-w-2xl mx-auto mb-6 ipad:mb-8 fade-in-up px-4 ipad:px-0">
                         Experience the art of beauty transformation through expert makeup artistry and personalized styling.
@@ -141,7 +141,7 @@ export default function MainPage() {
                         <p className="text-neutral-600 text-sm ipad:text-base">Loading your gallery...</p>
                     </div>
                 ) : image.length > 0 ? (
-                    <div className="columns-1 tablet:columns-2 ipad:columns-3 ipad-pro:columns-4 xl:columns-4 gap-4 ipad:gap-6">
+                    <div className="columns-2 tablet:columns-2 ipad:columns-3 ipad-pro:columns-4 xl:columns-4 gap-4 ipad:gap-6">
                         {image.map((img, index) => (
                             <div
                                 key={img.id}

@@ -1,4 +1,4 @@
-import { Instagram, MessageCircle, AtSign } from 'lucide-react';
+import { FaThreads, FaWhatsapp, FaInstagram } from "react-icons/fa6";
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
@@ -6,26 +6,27 @@ export default function Footer() {
     const socialLinks = [
         {
             name: 'Instagram',
-            icon: Instagram,
+            icon: FaInstagram,
             href: 'https://www.instagram.com/karyayullie?utm_source=ig_web_button_share_sheet&igsh=MThsYnBlaWJraWN2cg==',
             color: 'hover:text-pink-500'
         },
         {
             name: 'Whatsapp',
-            icon: MessageCircle,
+            icon: FaWhatsapp,
             href: '#',
             color: 'hover:text-green-500'
         },
         {
             name: 'Threads',
-            icon: AtSign,
+            icon: FaThreads,
             href: 'https://www.threads.com/@karyayullie',
             color: 'hover:text-blue-500'
         }
     ];
 
     return (
-        <footer className="backdrop-blur-glass border-t border-neutral-200/20 mt-12 ipad:mt-16">
+        <footer className="backdrop-blur-glass border-t-2 border-neutral-300/40 shadow-lg mt-12 ipad:mt-16 relative">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ruby/20 to-transparent"></div>
             <div className="max-w-7xl mx-auto px-4 ipad:px-8 ipad-pro:px-12 py-6 ipad:py-8">
                 <div className="flex flex-col items-center space-y-4 ipad:space-y-6">
 

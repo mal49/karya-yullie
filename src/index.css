@@ -13,6 +13,10 @@
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -44,7 +48,7 @@
   
   .backdrop-blur-glass {
     backdrop-filter: blur(10px);
-    background: rgba(252, 255, 227, 0.8);
+    background: linear-gradient(135deg, rgba(254, 252, 232, 0.95) 0%, rgba(249, 250, 251, 0.95) 50%, rgba(243, 244, 246, 0.95) 100%);
   }
   
   .floating-animation {

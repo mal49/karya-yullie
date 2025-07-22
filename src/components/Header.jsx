@@ -8,15 +8,15 @@ export default function Header() {
 
     const navItems = [
         { key: 'home', label: 'Home' },
-        { key: 'collaboration', label: 'Collaboration' },
+        // { key: 'collaboration', label: 'Collaboration' },
         { key: 'about', label: 'About' },
         { key: 'service', label: 'Services & Rates' },
         { key: 'contact', label: 'Contact' }
     ];
 
     return (
-        <div className="backdrop-blur-glass sticky top-0 z-50 border-b border-neutral-200/20">
-            <div className="flex justify-between items-center gap-8 h-14 ipad:h-16 px-4 ipad:px-8 ipad-pro:px-12 py-4 w-full"> 
+        <div className="backdrop-blur-glass sticky top-0 z-50 border-b border-neutral-200/20 w-full">
+            <div className="flex justify-between items-center gap-8 h-14 ipad:h-16 px-4 ipad:px-8 ipad-pro:px-12 py-4 w-full max-w-none"> 
                 {/* Logo/Brand - Left Side */}
                 <div className="flex items-center">
                     <button 
@@ -47,7 +47,7 @@ export default function Header() {
                             {currentPage === item.key && (
                                 <div className="absolute inset-0 bg-gradient-to-r from-ruby/10 to-ruby-light/10 rounded-lg"></div>
                             )}
-                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-ruby to-ruby-light transition-all duration-300 group-hover:w-full"></div>
+                            {/* <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-ruby to-ruby-light transition-all duration-300 group-hover:w-full"></div> */}
                         </button>
                     ))}
                 </nav>

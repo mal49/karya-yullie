@@ -20,7 +20,7 @@ export default function AboutPage() {
     ];
 
     return (
-        <div className="min-h-screen gradient-bg font-inter">
+        <div className="min-h-screen w-full gradient-bg font-inter">
             <Header />
             
             {/* Hero Section */}

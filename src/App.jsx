@@ -26,7 +26,7 @@ function AppContent() {
   }
 
   return(
-    <div className="min-h-screen gradient-bg font-inter m-0 p-0">
+    <div className="min-h-screen w-full gradient-bg font-inter m-0 p-0">
       {renderPage()}
     </div>
   );

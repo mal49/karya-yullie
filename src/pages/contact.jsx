@@ -98,7 +98,7 @@ export default function Contact() {
     };
     
     return(
-        <div className="min-h-screen gradient-bg font-inter flex flex-col">
+        <div className="min-h-screen w-full gradient-bg font-inter flex flex-col">
             <Header />
             
             {/* Main Content - Centered */}
