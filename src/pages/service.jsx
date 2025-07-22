@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { CheckCircle, Palette, Sparkles, Heart, Crown, ArrowLeft, MessageCircle, Star, Users, Clock } from 'lucide-react';
@@ -94,14 +94,48 @@ export default function ServicePage() {
         }
     ];
 
+    // Handle URL hash for mobile detail view navigation
+    useEffect(() => {
+        const handleHashChange = () => {
+            const hash = window.location.hash;
+            if (hash.startsWith('#service-')) {
+                const serviceId = parseInt(hash.replace('#service-', ''));
+                const service = services.find(s => s.id === serviceId);
+                if (service) {
+                    setSelectedService(service);
+                    setShowMobileDetail(true);
+                }
+            } else if (showMobileDetail) {
+                // Hash was removed, go back to service grid
+                setShowMobileDetail(false);
+                setSelectedService(null);
+            }
+        };
+
+        // Listen for hash changes (including browser back button)
+        window.addEventListener('hashchange', handleHashChange);
+        
+        // Check initial hash on mount
+        handleHashChange();
+        
+        return () => {
+            window.removeEventListener('hashchange', handleHashChange);
+        };
+    }, [services, showMobileDetail]);
+
     const handleServiceClick = (service) => {
-        setSelectedService(service);
-        setShowMobileDetail(true);
+        // Change hash instead of creating new history entry
+        window.location.hash = `service-${service.id}`;
     };
 
     const handleBackClick = () => {
-        setShowMobileDetail(false);
-        setSelectedService(null);
+        // Remove hash to go back to service grid
+        if (window.location.hash) {
+            window.history.back();
+        } else {
+            setShowMobileDetail(false);
+            setSelectedService(null);
+        }
     };
 
     // Mobile Service Detail View Component
