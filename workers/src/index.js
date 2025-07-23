@@ -54,10 +54,14 @@ export default {
 // Handle image fetching from Cloudinary
 async function handleImageFetch(request, env, corsHeaders) {
   const url = new URL(request.url);
-  const folder = url.searchParams.get('folder') || 'folder-1';
+  const folder = url.searchParams.get('folder') ?? 'folder-1';
+  // If explicitly passed as empty string, use empty
+  const folderParam = url.searchParams.has('folder') ? url.searchParams.get('folder') : 'folder-1';
 
   try {
-    const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folder}&max_results=500&sort_by=created_at_desc`;
+    const cloudinaryUrl = folderParam 
+      ? `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folderParam}&max_results=500&sort_by=created_at_desc`
+      : `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?max_results=500&sort_by=created_at_desc`;
     
     const response = await fetch(cloudinaryUrl, {
       headers: {
@@ -69,7 +73,7 @@ async function handleImageFetch(request, env, corsHeaders) {
       throw new Error(`Cloudinary API error: ${response.status}`);
     }
 
-    const data = await response.json();
+        const data = await response.json();
     
     const images = data.resources.map((resource, index) => ({
       id: index,

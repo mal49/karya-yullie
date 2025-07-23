@@ -17,7 +17,7 @@ const cloudinaryConfig = {
 export { cld, cloudinaryConfig };
 
 // Function to fetch images using Cloudflare Worker
-export const fetchCloudinaryImages = async (folder = 'folder-1') => {
+export const fetchCloudinaryImages = async (folder = '') => {
   try {
     const workerURL = 'https://karya-yullie-worker.ikhmalhanif60.workers.dev';
     const response = await fetch(`${workerURL}?folder=${folder}`, {

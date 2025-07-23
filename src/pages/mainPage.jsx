@@ -25,7 +25,7 @@ export default function MainPage() {
         setCurrentIndex(0);
 
         try {
-            const imageList = await fetchCloudinaryImages('folder-1');
+            const imageList = await fetchCloudinaryImages();
 
             setAllImages(imageList);
 
