@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CloudinaryImage from "../components/cloudinaryImage";
+import { fetchCloudinaryImages } from "../utils/cloudinary";
 import { ImageIcon, Loader2, X, Plus, ChevronUp } from 'lucide-react';
 
 export default function MainPage() {
@@ -23,65 +25,13 @@ export default function MainPage() {
         setCurrentIndex(0);
 
         try {
-            const publicImageModules = import.meta.glob(
-                [
-                    '/public/images/*.jpg',
-                    '/public/images/*.jpeg',
-                    '/public/images/*.png',
-                    '/public/images/*.gif',
-                    '/public/images/*.webp',
-                    '/public/images/*.bmp'
-                ],
-                { eager: true, as: 'url' }
-            );
-
-            // const assetsImageModules = import.meta.glob(
-            //     [
-            //         '/src/assets/**/*.jpg',
-            //         '/src/assets/**/*.jpeg', 
-            //         '/src/assets/**/*.png',
-            //         '/src/assets/**/*.gif',
-            //         '/src/assets/**/*.webp',
-            //         '/src/assets/**/*.bmp'
-            //     ],
-            //     { eager: true, as: 'url' }
-            // );
-
-            let imageList = [];
-            let currentId = 0;
-
-            for (const path in publicImageModules) {
-                const url = publicImageModules[path];
-                imageList.push({
-                    id: currentId++,
-                    url: url,
-                    name: path.split('/').pop(),
-                    path: path,
-                    folder: path.replace('/public', '').split('/').slice(0, -1).join('/') || '/'
-                });
-            }
-
-            // if (imageList.length === 0 && Object.keys(assetsImageModules).length > 0) {
-            //     for (const path in assetsImageModules) {
-            //         const url = assetsImageModules[path];
-            //         imageList.push({
-            //             id: currentId++,
-            //             url: url,
-            //             name: path.split('/').pop(),
-            //             path: path,
-            //             folder: 'src/assets'
-            //         });
-            //     }
-            // }
-
-            imageList.sort((a, b) => a.name.localeCompare(b.name));
+            const imageList = await fetchCloudinaryImages('folder-1');
 
             setAllImages(imageList);
 
             if (imageList.length === 0) {
-                setMessages('No images found. Please place images in your /public or /src/assets/ folders.');
+                setMessages('No images found in Cloudinary folder.');
             } else {
-                // Load initial batch
                 const initialBatch = imageList.slice(0, IMAGES_PER_LOAD);
                 setDisplayedImages(initialBatch);
                 setCurrentIndex(IMAGES_PER_LOAD);
@@ -89,7 +39,7 @@ export default function MainPage() {
             }
         } catch (error) {
             console.error('Error loading images', error);
-            setMessages('Error loading images. Please check your console for details');
+            setMessages('Error loading images from Cloudinary. Please check your credentials.');
         } finally {
             setIsLoading(false);
         }
@@ -195,15 +145,11 @@ export default function MainPage() {
                                     onClick={() => openModal(img)}
                                     style={{ animationDelay: `${index * 0.1}s` }}
                                 >
-                                    <img 
-                                        src={img.url} 
-                                        alt={img.name} 
+                                    <CloudinaryImage
+                                        publicId={img.publicId}
+                                        alt={img.name}
                                         className="w-full object-cover"
-                                        loading="lazy"
-                                        onError={(e) => {
-                                            console.error('Failed to load image:', img.url);
-                                            e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJpbnRlciwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=';
-                                        }}
+                                        useTransformation={false}
                                     />
                                     <div className="absolute bg-gradient-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
@@ -237,7 +183,7 @@ export default function MainPage() {
                     <div className="text-center py-16 ipad:py-20">
                         <ImageIcon className="w-12 h-12 ipad:w-16 ipad:h-16 text-neutral-400 mx-auto mb-4" />
                         <h3 className="text-lg ipad:text-xl font-playfair text-neutral-600 mb-2">No Images Found</h3>
-                        <p className="text-neutral-500 text-sm ipad:text-base">Add some images to your /public or /src/assets folder to get started.</p>
+                        <p className="text-neutral-500 text-sm ipad:text-base">No images found in your Cloudinary folder.</p>
                     </div>
                 )}
             </section>
@@ -264,14 +210,14 @@ export default function MainPage() {
                         >
                             <X size={28} className="ipad:w-8 ipad:h-8" />
                         </button>
-                        <img
-                            src={selectedImages.url}
+                        <CloudinaryImage
+                            publicId={selectedImages.publicId}
                             alt={selectedImages.name}
                             className="max-w-full max-h-[85vh] ipad:max-h-[90vh] object-contain shadow-elegant"
+                            useTransformation={true}
+                            width="1200"
+                            quality="auto:best"
                         />
-                        {/* <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-                            
-                        </div> */}
                     </div>
                 </div>
             )}

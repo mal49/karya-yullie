@@ -15,7 +15,7 @@ export default function Header() {
     ];
 
     return (
-        <div className="backdrop-blur-glass sticky top-0 z-50 border-b border-neutral-200/20 w-full">
+        <div className="header-footer-bg sticky top-0 z-50 border-b border-neutral-200/20 w-full">
             <div className="flex justify-between items-center gap-8 h-14 ipad:h-16 px-4 ipad:px-8 ipad-pro:px-12 py-4 w-full max-w-none"> 
                 {/* Logo/Brand - Left Side */}
                 <div className="flex items-center">
@@ -69,7 +69,7 @@ export default function Header() {
                 isMenuOpen 
                     ? 'max-h-80 opacity-100 translate-y-0' 
                     : 'max-h-0 opacity-0 -translate-y-4'
-                } backdrop-blur-glass border-t border-neutral-200/20 shadow-lg 
+                } header-footer-bg border-t border-neutral-200/20 shadow-lg 
                 transition-all duration-500 ease-in-out overflow-hidden`}>
                 <div className="px-4 py-4 space-y-2">
                     {navItems.map((item, index) => (

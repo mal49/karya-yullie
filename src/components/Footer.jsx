@@ -25,9 +25,9 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="backdrop-blur-glass border-t-2 border-neutral-300/40 shadow-lg mt-12 ipad:mt-16 relative">
+        <footer className="header-footer-bg border-t-2 border-neutral-300/40 shadow-lg mt-16 ipad:mt-20 relative">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ruby/20 to-transparent"></div>
-            <div className="max-w-7xl mx-auto px-4 ipad:px-8 ipad-pro:px-12 py-6 ipad:py-8">
+            <div className="max-w-7xl mx-auto px-4 ipad:px-8 ipad-pro:px-12 py-8 ipad:py-12">
                 <div className="flex flex-col items-center space-y-4 ipad:space-y-6">
 
                     <div className='text-xl ipad:text-2xl font-sail text-ruby'>

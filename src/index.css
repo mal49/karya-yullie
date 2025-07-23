@@ -26,9 +26,7 @@
 
 @layer components {
   .gradient-bg {
-    background: linear-gradient(135deg, #fefce8 0%, #f9fafb 50%, #f3f4f6 100%);
-    background-attachment: fixed;
-    background-size: 100% 100%;
+    background-color: #fdfcec;
   }
   
   .card-hover {
@@ -49,6 +47,10 @@
   .backdrop-blur-glass {
     backdrop-filter: blur(10px);
     background: linear-gradient(135deg, rgba(254, 252, 232, 0.95) 0%, rgba(249, 250, 251, 0.95) 50%, rgba(243, 244, 246, 0.95) 100%);
+  }
+
+  .header-footer-bg {
+    background-color: #fdfcec !important;
   }
   
   .floating-animation {
