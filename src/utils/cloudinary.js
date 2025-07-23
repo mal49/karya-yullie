@@ -32,7 +32,12 @@ export const fetchCloudinaryImages = async (folder = '') => {
     }
 
     const data = await response.json();
-    return data.images;
+    // Sort images by name
+    const sortedImages = data.images?.slice().sort((a, b) => {
+      if (!a.name || !b.name) return 0;
+      return a.name.localeCompare(b.name);
+    });
+    return sortedImages;
   } catch (error) {
     console.error('Error fetching images from Cloudflare Worker:', error);
     throw error;

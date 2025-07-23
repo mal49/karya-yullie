@@ -6,7 +6,7 @@ import { format, quality } from '@cloudinary/url-gen/actions/delivery';
 // Configure Cloudinary instance
 const cld = new Cloudinary({
   cloud: {
-    cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || import.meta.env.CLOUDINARY_CLOUD_NAME
+    cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
   }
 });
 
