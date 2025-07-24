@@ -14,10 +14,11 @@ export default function MainPage() {
     const [selectedImages, setSelectedImages] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const [selectedFolder, setSelectedFolder] = useState(''); // New state for selected folder
     
     const IMAGES_PER_LOAD = 12; // Number of images to load per batch
 
-    const loadAllImages = async () => {
+    const loadAllImages = async (folder = '') => { // Add folder parameter
         setIsLoading(true);
         setMessages('');
         setAllImages([]);
@@ -25,7 +26,7 @@ export default function MainPage() {
         setCurrentIndex(0);
 
         try {
-            const imageList = await fetchCloudinaryImages();
+            const imageList = await fetchCloudinaryImages(folder); // Use folder parameter
 
             setAllImages(imageList);
 
@@ -79,8 +80,8 @@ export default function MainPage() {
     }, []);
 
     useEffect(() => {
-        loadAllImages();
-    }, []);
+        loadAllImages(selectedFolder); // Use selectedFolder when loading all images
+    }, [selectedFolder]); // Re-run when selectedFolder changes
 
     const openModal = (image) => {
         setSelectedImages(image);
@@ -126,6 +127,40 @@ export default function MainPage() {
                         </div>
                     )}
                 </div>
+            </section>
+
+            {/* Filter Buttons Section */}
+            <section className="px-4 ipad:px-8 ipad-pro:px-12 max-w-7xl mx-auto mb-8 ipad:mb-12 flex justify-center gap-4 flex-wrap">
+                <button
+                    onClick={() => setSelectedFolder('')}
+                    className={`inline-flex items-center gap-2 px-2 ipad:px-4 py-0.5 ipad:py-1.5 rounded-full backdrop-blur-glass font-medium text-sm ipad:text-base transition-all duration-300 ease-in-out shadow-soft ${selectedFolder === '' 
+                            ? 'bg-white/20 text-neutral-700 border border-white/20' 
+                            : 'bg-neutral-200 text-ruby border border-neutral-300 hover:bg-neutral-300 hover:shadow-md hover:border-neutral-300'
+                    }`}
+                >
+                    <ImageIcon size={18} className={`${selectedFolder === '' ? 'text-white' : 'text-ruby'} ipad:w-5 ipad:h-5`} />
+                    All
+                </button>
+                <button
+                    onClick={() => setSelectedFolder('folder1')}
+                    className={`inline-flex items-center gap-2 px-2 ipad:px-4 py-0.5 ipad:py-1.5 rounded-full backdrop-blur-glass font-medium text-sm ipad:text-base transition-all duration-300 ease-in-out shadow-soft ${selectedFolder === 'folder1' 
+                            ? 'bg-white/20 text-neutral-700 border border-white/20' 
+                            : 'bg-neutral-200 text-ruby border border-neutral-300 hover:bg-neutral-300 hover:shadow-md hover:border-neutral-300'
+                    }`}
+                >
+                    <ImageIcon size={18} className={`${selectedFolder === 'folder1' ? 'text-white' : 'text-ruby'} ipad:w-5 ipad:h-5`} />
+                    Folder 1
+                </button>
+                <button
+                    onClick={() => setSelectedFolder('folder2')}
+                    className={`inline-flex items-center gap-2 px-2 ipad:px-4 py-0.5 ipad:py-1.5 rounded-full backdrop-blur-glass font-medium text-sm ipad:text-base transition-all duration-300 ease-in-out shadow-soft ${selectedFolder === 'folder2' 
+                            ? 'bg-white/20 text-neutral-700 border border-white/20' 
+                            : 'bg-neutral-200 text-ruby border border-neutral-300 hover:bg-neutral-300 hover:shadow-md hover:border-neutral-300'
+                    }`}
+                >
+                    <ImageIcon size={18} className={`${selectedFolder === 'folder2' ? 'text-white' : 'text-ruby'} ipad:w-5 ipad:h-5`} />
+                    Folder 2
+                </button>
             </section>
 
             {/* Gallery Section */}

@@ -9,9 +9,9 @@
     "start": "wrangler dev"
   },
   "devDependencies": {
-    "wrangler": "^3.0.0"
+    "wrangler": "^4.25.1"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.0.0"
   }
-} 
+}

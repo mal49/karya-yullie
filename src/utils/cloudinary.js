@@ -20,7 +20,9 @@ export { cld, cloudinaryConfig };
 export const fetchCloudinaryImages = async (folder = '') => {
   try {
     const workerURL = 'https://karya-yullie-worker.ikhmalhanif60.workers.dev';
-    const response = await fetch(`${workerURL}?folder=${folder}`, {
+    const requestURL = `${workerURL}?folder=${folder}`;
+    console.log('Fetching images from worker URL:', requestURL);
+    const response = await fetch(requestURL, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

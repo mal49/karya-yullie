@@ -54,27 +54,57 @@ export default {
 // Handle image fetching from Cloudinary
 async function handleImageFetch(request, env, corsHeaders) {
   const url = new URL(request.url);
-  const folder = url.searchParams.get('folder') ?? 'folder-1';
-  // If explicitly passed as empty string, use empty
-  const folderParam = url.searchParams.has('folder') ? url.searchParams.get('folder') : 'folder-1';
+  const requestedFolder = url.searchParams.get('folder'); // This can be 'folder2', 'folder-1', or ''
+
+  let cloudinaryUrl;
+  let requestMethod = 'GET'; // Default to GET method
+  let requestBody = null; // Default to no request body
+
+  if (requestedFolder) {
+    // Use the Search API to filter by asset_folder for specific folders
+    cloudinaryUrl = `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/resources/search?max_results=500`;
+    requestMethod = 'POST'; // Search API requires POST method
+    requestBody = {
+      expression: `asset_folder:"${requestedFolder}"`, // Use asset_folder for searching within folders
+      max_results: 500,
+      // Removed sort_by parameter temporarily to isolate the issue with asset_folder filtering
+    };
+  } else {
+    // If no folder is specified, list all uploaded images using the /resources/image endpoint
+    cloudinaryUrl = `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/resources/image?max_results=500`;
+    requestMethod = 'GET'; // /resources/image endpoint uses GET method
+    // For /resources/image, sorting is usually done via URL parameters if supported, but let's keep it simple for now as it's not the search API
+    // and ensure no sort_by body is sent, as it's a GET request and this structure is for POST search.
+  }
 
   try {
-    const cloudinaryUrl = folderParam 
-      ? `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?prefix=${folderParam}&max_results=500&sort_by=created_at_desc`
-      : `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/resources/image/upload?max_results=500&sort_by=created_at_desc`;
+    console.log('Fetching from Cloudinary URL:', cloudinaryUrl);
+    if (requestBody) {
+      console.log('Request Body:', JSON.stringify(requestBody));
+    }
     
     const response = await fetch(cloudinaryUrl, {
+      method: requestMethod,
       headers: {
-        'Authorization': `Basic ${btoa(env.CLOUDINARY_API_KEY + ':' + env.CLOUDINARY_API_SECRET)}`
-      }
+        'Authorization': `Basic ${btoa(env.CLOUDINARY_API_KEY + ':' + env.CLOUDINARY_API_SECRET)}`,
+        'Content-Type': requestBody ? 'application/json' : undefined // Only set Content-Type for POST requests with a body
+      },
+      body: requestBody ? JSON.stringify(requestBody) : undefined
     });
 
+    const responseText = await response.text(); // Read the response body as text
+    console.log('Cloudinary API Raw Response Status:', response.status);
+    console.log('Cloudinary API Raw Response Body:', responseText);
+
     if (!response.ok) {
-      throw new Error(`Cloudinary API error: ${response.status}`);
+      throw new Error(`Cloudinary API error: ${response.status} - ${responseText}`);
     }
 
-        const data = await response.json();
+    const data = JSON.parse(responseText); // Now parse it from the text
     
+    // Log public_id and folder for all resources
+    console.log('Cloudinary Resources:', data.resources.map(r => ({ public_id: r.public_id, folder: r.folder })));
+
     const images = data.resources.map((resource, index) => ({
       id: index,
       publicId: resource.public_id,
@@ -196,6 +226,7 @@ async function handleFormSubmission(request, env, corsHeaders) {
 
     const telegramApiUrl = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`;
 
+    //first user
     const telegramResponse = await fetch(telegramApiUrl, {
       method: 'POST',
       headers: {
@@ -206,6 +237,19 @@ async function handleFormSubmission(request, env, corsHeaders) {
         text: telegramMessage,
         parse_mode: 'MarkdownV2',
       }),
+    });
+
+    //second user
+    await fetch(telegramApiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: env.TELEGRAM_CHAT_ID_2,
+        text: telegramMessage,
+        parse_mode: 'MarkdownV2',
+      })
     });
 
     if (telegramResponse.ok) {
